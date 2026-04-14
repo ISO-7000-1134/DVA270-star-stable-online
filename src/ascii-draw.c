@@ -19,9 +19,9 @@ void drawScreenBuffer(FixedPoint* screenBuffer) {
 }
 
 void drawLine(FixedPoint* screenBuffer, uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, FixedPoint value) {
-    uint32_t k;
+    uint32_t k; // fixed decimal point
     uint16_t x = x1;
-    uint32_t y = y1;
+    uint32_t y = y1; // fixed decimal point
 
     if (x1 == x2) {
         for (uint16_t y = y1; y > y2; y--)   
@@ -33,13 +33,14 @@ void drawLine(FixedPoint* screenBuffer, uint16_t x1, uint16_t y1, uint16_t x2, u
         uint32_t y = y1 << 16;
         uint32_t k = ((y2 - y1) << 16) / (x2 - x1);
         for (; x > x2; x--) {
-            screenBuffer[x + WIDTH * ((y >> 16) & 0xffffffff)] = value;
+            screenBuffer[x + WIDTH * ((y & 0xffff0000) >> 16)] = value; // floor y
             y += k;
         }
         for (; x < x2; x++) {
-            screenBuffer[x + WIDTH * ((y >> 16) & 0xffffffff)] = value;
+            screenBuffer[x + WIDTH * ((y & 0xffff0000) >> 16)] = value; // floor y
             y += k;
         }
     } 
 
 }
+
