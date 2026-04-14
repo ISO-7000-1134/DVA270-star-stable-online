@@ -44,9 +44,9 @@ void drawLine(FixedPoint* screenBuffer, uint16_t x1, uint16_t y1, uint16_t x2, u
 }
 
 /// returns number of hits
-Point castRay(Point origin, Point dir, Point level[], FixedPoint wallBrightness[], levelSize) {
+Point castRay(Point origin, Point dir, Point level[], FixedPoint wallBrightness[], levelSize, FixedPoint maxDist) {
     Point hit;
 
-    
+    if ()
 }
 
