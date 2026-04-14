@@ -30,17 +30,23 @@ void drawLine(FixedPoint* screenBuffer, uint16_t x1, uint16_t y1, uint16_t x2, u
             screenBuffer[x + WIDTH * y] = value;
     } else {
         uint16_t x = x1;
-        uint32_t y = y1 << 16;
-        uint32_t k = ((y2 - y1) << 16) / (x2 - x1);
+        uint32_t y = y1 << 20;
+        uint32_t k = ((y2 - y1) << 20) / (x2 - x1);
         for (; x > x2; x--) {
-            screenBuffer[x + WIDTH * ((y & 0xffff0000) >> 16)] = value; // floor y
+            screenBuffer[x + WIDTH * ((y & 0xfff00000) >> 20)] = value; // floor y
             y += k;
         }
         for (; x < x2; x++) {
-            screenBuffer[x + WIDTH * ((y & 0xffff0000) >> 16)] = value; // floor y
+            screenBuffer[x + WIDTH * ((y & 0xfff00000) >> 20)] = value; // floor y
             y += k;
         }
     } 
+}
 
+/// returns number of hits
+Point castRay(Point origin, Point dir, Point level[], FixedPoint wallBrightness[], levelSize) {
+    Point hit;
+
+    
 }
 
